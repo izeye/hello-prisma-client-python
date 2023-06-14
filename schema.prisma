@@ -1,0 +1,36 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:dev.db"
+}
+
+generator db {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = 5
+}
+
+model Post {
+  id         String   @id @default(cuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  title      String
+  published  Boolean
+  desc       String?
+  comments Comment[]
+}
+
+model Comment {
+  id         String   @default(cuid()) @id
+  created_at DateTime @default(now())
+  content    String
+  post       Post @relation(fields: [post_id], references: [id])
+  post_id    String
+}
+
+model User {
+  id      String   @default(cuid()) @id
+  name    String
+//  posts   Post[]
+  email   String?
+//  profile Profile?
+}

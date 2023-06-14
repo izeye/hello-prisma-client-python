@@ -1,0 +1,4 @@
+/.idea/
+/migrations/
+/dev.db
+/hello-prisma-client-python.iml
